@@ -1,18 +1,18 @@
-import { useState } from 'react'
 import Main from './com/Main'
+import { DeviceProvider } from './com/DeviceContext'
 
 import './App.css'
 
 
 function App() {
-  const [count, setCount] = useState(0)
-  
   return <>
     <header>
       <h1>Bluetooth Web Dashboard</h1>
     </header>
 
-    <Main />
+    <DeviceProvider>
+      <Main />
+    </DeviceProvider>
 
     <footer>
       <p>fingerskier</p>
