@@ -1,18 +1,6 @@
 import { createContext, useContext, useState } from 'react'
-import type { ReactNode } from 'react'
 
-export type ServiceInfo = {
-  uuid: string
-  characteristics: string[]
-}
-
-interface DeviceState {
-  device: BluetoothDevice | null
-  services: ServiceInfo[]
-  connect: () => Promise<void>
-}
-
-const DeviceContext = createContext<DeviceState | undefined>(undefined)
+const DeviceContext = createContext(undefined)
 
 // eslint-disable-next-line react-refresh/only-export-components
 export function useDevice() {
@@ -21,14 +9,14 @@ export function useDevice() {
   return ctx
 }
 
-export function DeviceProvider({ children }: { children: ReactNode }) {
-  const [device, setDevice] = useState<BluetoothDevice | null>(null)
-  const [services, setServices] = useState<ServiceInfo[]>([])
+export function DeviceProvider({ children }) {
+  const [device, setDevice] = useState(null)
+  const [services, setServices] = useState([])
 
   async function connect() {
     const dev = await navigator.bluetooth.requestDevice({ acceptAllDevices: true })
     const server = await dev.gatt?.connect()
-    const serviceInfos: ServiceInfo[] = []
+    const serviceInfos = []
     try {
       const primaryServices = await server?.getPrimaryServices()
       if (primaryServices) {

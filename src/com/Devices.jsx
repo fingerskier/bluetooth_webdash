@@ -1,11 +1,10 @@
-import React from 'react'
 import { useDevice } from './DeviceContext'
 
 
 export default function Devices() {
   const { device, services, connect } = useDevice()
-  
-  
+
+
   return <>
     <h2>Devices</h2>
     <button onClick={connect}>Connect</button>
